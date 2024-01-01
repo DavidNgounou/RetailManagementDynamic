@@ -1,0 +1,107 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+:root{
+    --main-color: #9489F5;
+    --box-shadow: #c2c2c276;
+}
+html, body{
+    width: 100%;
+    height: 100%;
+}
+body{
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+#page{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #efefef;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.notif_bar{
+    width: 100%;
+    height: 50px;
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 15px;
+    background-color: white;
+    margin-bottom: 15px;
+    box-shadow: 0px 4px 8px 0px var(--box-shadow);
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.nav_page{
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    background-color: transparent;
+    display: flex;
+    flex-direction: row;
+}
+
+.vertical_nav{
+    width: 250px;
+    box-shadow: 2px 2px 17px 2px var(--box-shadow);
+    border-radius: 15px;
+    margin-right: 15px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    row-gap: 10px;
+    position: relative;
+}
+
+.tab_content{
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    background-color: unset;
+}
+
+button{
+    width: 100%;
+    background-color: white;
+    height: 45px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding:  10px;
+    border: none;
+    box-shadow: 2px 3px 8px 0px var(--box-shadow);
+    color: var(--main-color);
+    transition: 0.5s ease;
+    column-gap: 15px;
+}
+
+button:hover{
+    background-color: var(--main-color);
+    color: white;
+    box-shadow: none;
+    cursor: pointer;
+}
+
+.tab_icon{
+    fill: var(--main-color);
+    transition: 0.3s ease;
+}
+
+button:hover .tab_icon{
+    fill: white;
+}
+
+iframe{
+    width: 100%;
+    height: 100%;
+}
+/* button:hover svg{
+    fill: white;
+} */

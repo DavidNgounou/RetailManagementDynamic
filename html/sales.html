@@ -1,0 +1,225 @@
+<?php
+    $hostname = 'localhost';
+    $username = 'root';
+    $password = '';
+    $dbname = 'stock';
+
+    $conn = new mysqli($hostname,$username,$password,$dbname);
+    if($conn->error){
+        die("Connection failed:" . $conn->connect_error);
+    }
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="logpage">
+
+        <form action="sales.php" method="post">
+            <h1>SALES INFO</h1>
+            <div class="field">
+                <label for="sale_id">Sale Id:</label>
+                <input id="sale_id" name = "sale_id"type="text" placeholder="Enter sales id" required>
+            </div>
+            <div class="field">
+                <label for="client">Client:</label>
+                <select name="client" id="client">
+                <?php
+                    $sql = 'SELECT * FROM client';
+                    $result = $conn->query($sql);
+                    if(!$result){
+                        die("Error executing query: ".$conn->error);
+                    }
+                    while ($row = $result->fetch_assoc()){
+                        echo "<option value=" . $row["client_id"] . ">". $row['client_fname'] . "</option>";                    }
+                ?>
+                   
+                </select>
+            </div>
+            <div class="field">
+                <label for="date">Sale Date:</label>
+                <input id="date" name = "date"type="date" placeholder="Enter sales id" required>
+            </div>
+            <div class="product_info">
+                <div class="field">
+                    <label for="produit">produit:</label>
+                    <select name="produit" id="produit" onchange="fill()">
+                    <?php
+                        $sql = 'SELECT * FROM PRODUIT';
+                        $result = $conn->query($sql);
+                        if(!$result){
+                            die("Error executing query: ".$conn->error);
+                        }
+                        while ($row = mysqli_fetch_row($result)){
+                            echo "<option value='$row[0]#$row[1]#$row[2]#$row[3]'>$row[1]</option>";
+                        }
+                    ?>
+
+                    
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="pname">product name:</label>
+                    <input id="pname" class = "pname" type="text" placeholder="product name" disabled>
+                </div>
+                <div class="field">
+                    <label for="qty_stock">qty stock:</label>
+                    <input id="qty_stock" class = "qty_stock" type="number" placeholder="qty in stock" disabled>
+                </div>
+                <div class="field">
+                    <label for="price">unit price:</label>
+                    <input id="price" class = "price" type="number" placeholder="price" disabled>
+                </div>
+                <div class="field">
+                    <label for="com_qty">Com qty:</label>
+                    <input id="com_qty" name = "com_qty" type="number" value = 0 placeholder="Enter qty commanded" required>
+                    <div id = "errmsg" class="errmsg">
+                        !! invalid !!
+                    </div>
+                </div>
+                <input type="button"  value="OK" onclick= "store_value()">
+            </div>
+            <table id="table">
+                <tr>
+                    <th>product id</th>
+                    <th>product name</th>
+                    <th>price</th>
+                    <th>qty</th>
+                    <th>qty commanded</th>
+                </tr>
+            </table>
+            <div class="total">
+                <label for="total">Total</label>
+                <input id="total" type="number" value=0 disabled>
+            </div>
+            <div class="validate">
+                <input type="submit" value="OK">
+                <input type="reset" value="cancel" onclick="delete_table()">
+                
+            </div>
+        </form>
+        <script>
+            var chart = {}
+            function fill(){
+                pinfo = document.getElementById('produit').value;
+                parts = pinfo.split('#');
+                document.getElementById('pname').value = parts[1];
+                document.getElementById('qty_stock').value= parts[2];
+                document.getElementById('price').value = parts[3];
+            }
+            function store_value(){
+                let com_qty = document.getElementById("com_qty")
+                // Check if the trimmed value of the input field is not null
+                if (com_qty.value.trim() == '0'){
+                  // show the error message
+                  document.getElementById("errmsg").style.display = "block";
+                    
+                  
+                }
+                else{
+                    // hide the error message
+                    document.getElementById("errmsg").style.display = "none";
+                    var total = document.getElementById("total");
+                    let table = document.getElementById("table");
+                    let id = parseInt(document.getElementById("produit").value.split("#")[0]);
+                    let name = document.getElementById("pname").value;
+                    let price = document.getElementById("price").value;
+                    let qty_stock = document.getElementById("qty_stock").value;
+                    if(parseInt(qty_stock) >= parseInt(com_qty.value) && parseInt(com_qty.value) > 0 ){
+                        if (name in chart){
+                            alert('Product present already:' + '\n' + 'Select Product in list to modify contents');
+                        }
+                        else{
+
+                            chart[name] = {
+                                nid: id,
+                                qty_com: parseInt(com_qty.value),
+                                price: parseInt(price)
+                            };
+                            alert(JSON.stringify(chart));
+
+                            // Insert a new row at the begining of the table
+                            let row = table.insertRow(1);
+                            row.title = "Select to modify quantity commanded";
+                            // Insert six cells in the new row
+                            let cell1 = row.insertCell();
+                            let cell2 = row.insertCell();
+                            let cell3 = row.insertCell();
+                            let cell4 = row.insertCell();
+                            let cell5 = row.insertCell();
+                            let cell6 = row.insertCell();
+                            // Assign the values to the cells
+                            cell1.innerHTML = id;
+                            cell2.innerHTML = name;
+                            cell3.innerHTML = price;
+                            cell4.innerHTML = qty_stock;
+                            cell5.innerHTML = com_qty.value;
+                            cell6.innerHTML = '<button id="delete_btn" class="delete_btn" onclick = "deleteRow(this)"> &times; </button>';
+                            cell6.style.backgroundColor = 'transparent';
+                            cell6.style.padding = 0;
+                            cell6.position = 'absolute';
+                            cell6.zIndex = "1";
+                            
+                            //Add event listener for the button
+                            deleteProdbutton = document.getElementById('delete_btn');
+                            deleteProdbutton.addEventListener("click", function(){
+                                this.parentNode.parentNode.parentNode.removeChild(row);
+                                document.getElementById('pname').value = '';
+                                document.getElementById('qty_stock').value= '';
+                                document.getElementById('price').value = '';
+                                document.getElementById('com_qty').value = '';
+
+                            });
+                            // Row adding event listener to modify row clicked
+                            row.addEventListener("click", function() {
+                                cell = this.getElementsByTagName('td');
+                                
+
+                                //collecting elements to be updated
+                                document.getElementById('pname').value = cell[1].innerHTML;
+                                document.getElementById('qty_stock').value= parseInt(cell[3].innerHTML);
+                                document.getElementById('price').value = parseFloat(cell[2].innerHTML);
+                                document.getElementById('com_qty').value = parseInt(cell[4].innerHTML);
+                                select = document.getElementById('produit');
+                                for(let j=0;j<select.options.length;j++){
+                                    if(select.options[j].value.split('#')[0] === cell[0].innerHTML){
+                                        select.options[j].selected = true;
+                                        break;
+                                    }
+                                }
+                                total.value = total.value - parseInt(chart[cell[1].innerHTML]['qty_com']*chart[cell[1].innerHTML]['price']);
+                                delete chart[cell[1].innerHTML];
+                                this.parentNode.removeChild(row);
+
+
+                            });
+
+                            total.value = parseInt(total.value) + parseInt(price * com_qty.value);
+                        }
+                    }
+                    else{
+                        alert("Invalid Input check values entered");
+                    }
+                }
+                               
+              }
+            function delete_table(){
+                chart = {}
+                let table = document.getElementById("table");
+                total.value = 0;
+                for(let j = table.rows.length-1; j > 0; j--){
+                    for (let i = table.rows[j].cells.length-1; i >= 0; i--){
+                        table.rows[j].deleteCell(-1);
+                    }
+                }
+            }
+
+        </script>
+    </div>
+</body>
+</html>

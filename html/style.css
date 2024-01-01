@@ -1,0 +1,141 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+}
+.logpage{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+form{
+    width: 60%;
+    height: fit-content;
+    padding: 30px;
+    border: none;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 10px;
+    box-shadow: -1px 0px 23px -1px rgb(182, 104, 235);
+}
+form h1{
+    text-align: center;
+}
+form .field{
+    display: flex;
+    flex-direction: column;
+    transition: 0.3s ease;
+    width: 100%;
+}
+.product_info .field{
+    width: 70%;
+}
+input{
+    all: unset
+}
+input[type=text],input[type=number],input[type=date],select{
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid rgb(116, 67, 149);
+    margin-top: 8px;
+    transition: 0.2s ease;
+    width: 100%;
+    margin-right: 10px;
+}
+option{
+    padding: 5px;
+}
+input:focus{
+    border: 3px solid rgb(182, 104, 235);
+}
+input[type=submit],input[type=reset],input[type=button]{
+    width: 100%;
+    padding: 10px;
+    background-color:rgb(182, 104, 235);
+    color: white;
+    border-radius: 10px;
+    border: none;
+    text-align: center;
+    transition: 0.5s ease;
+}
+
+input[type=submit]:focus,input[type=reset]:focus,input[type=button]:focus{
+    background-color: rgb(116, 67, 149);
+}
+input[type=submit]:hover,input[type=reset]:hover{
+    cursor: pointer;
+}
+form .field:hover{
+    FONT-WEIGHT: 500;
+}
+.product_info{
+    display: grid;
+    grid-template-columns: repeat(6,1fr);
+    column-gap: 8px;
+    align-items: center;
+}
+.product_info button{
+    width: 100px;
+    height: 50px;
+}
+.validate{
+    margin-top: 40px;
+    display: flex;
+    column-gap: 20px;
+}
+table{
+    padding-top: 15px;
+    width: 100%;
+}
+table,td,tr,.delete_cell{
+    transition: 1s ease;
+}
+th{
+    padding: 10px;
+    background-color: rgb(116, 67, 149);
+    color: white;
+    border-radius: 5px;
+}
+td{
+    padding: 10px;
+    background-color: rgb(193, 176, 205);
+    color: white;
+    border-radius: 5px;
+}
+
+tr:hover td{
+    background-color: rgb(202, 195, 207);
+    cursor: pointer;
+}
+
+.errmsg{
+    color: red;
+    display: none;
+    text-align: center;
+    width: 100%;
+}
+.delete_btn{
+    text-align: center;
+    background-color: violet;
+    padding: 5px;
+    font-size: 35px;
+    border: none;
+    width: 100%;
+    color: white;
+    border-radius: 5px;
+    position: relative;
+    z-index: 2;
+}
+.delete_btn:hover{
+    cursor: pointer;
+    background-color: rgb(198, 80, 117);
+}

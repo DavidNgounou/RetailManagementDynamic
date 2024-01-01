@@ -1,0 +1,163 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+.details {
+    display: flex;
+    row-gap: 5px;
+    height: 80%;
+    flex-direction: column;
+    overflow-y:  scroll;
+    overflow-x: auto;
+    position: relative;
+}
+
+
+
+body{
+    padding: 10px;
+}
+:root{
+    --main-color: #9489F5;
+    --sec-color: #968cef;
+    --box-shadow: #c2c2c276;
+    --tertiary-color: #9891ec;
+}
+
+.desc_content, .desc_img {
+    width: 100%;
+    height: 90%;
+    padding: 20px;
+}
+
+.desc_image{
+    display: flex;
+    box-sizing: border-box;
+    height: 70%;
+}
+
+.desc_img img{
+    width: 90%;
+    height: 90%;
+}
+
+.desc_content {
+    border-left: 2px solid black;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    row-gap: 10px;
+}
+
+.desc_details, .cond_details {
+    height: 50%;
+}
+
+section#elt_details {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.elt_details{
+    display: grid;
+    width: 80%;
+    overflow: scroll;
+}
+body, html{
+    width: 100%;
+    height: 100%;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    display: flex;
+}
+
+th {
+    padding: 10px;
+}
+
+span.key {
+    font-weight: bolder;
+    color: var(--main-color);
+}
+
+.elt_head{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+.content{
+    height: 500px;
+    border-radius: 15px;
+    background-color: white;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    box-sizing: border-box;
+    box-shadow: 2px 2px 17px 2px var(--box-shadow);
+}
+
+.desc{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.head{
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+table, th, td, tr{
+    border-collapse: collapse;
+}
+
+#hist_head{
+    background-color: #9891ec;
+    color: white;
+}
+td{
+    padding: 10px;
+}
+tr{
+    border-bottom: 1px solid var(--main-color)
+}
+svg:hover{
+    cursor: pointer;
+
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 3px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #e8e6ff;
+    border-radius: 15px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #c3bdff;
+    border-radius: 15px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #9d94ff; 
+  }
+  
